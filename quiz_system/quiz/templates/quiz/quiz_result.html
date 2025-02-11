@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        .score-box { padding: 15px; border-radius: 10px; margin-bottom: 20px; color: white; font-size: 20px; font-weight: bold; }
+        .low-score { background-color: #dc3545; }  /* Red */
+        .medium-score { background-color: #ffc107; } /* Yellow */
+        .high-score { background-color: #28a745; }  /* Green */
+        .progress-bar-container { width: 100%; background: #ddd; border-radius: 5px; margin: 10px 0; }
+        .progress-bar { height: 20px; border-radius: 5px; transition: width 0.5s ease-in-out; }
+        .progress-green { background-color: #28a745; } /* Green */
+        .progress-yellow { background-color: #ffc107; } /* Yellow */
+        .progress-red { background-color: #dc3545; } /* Red */
+        .question-box { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background: #fafafa; }
+        .buttons { margin-top: 20px; }
+        .btn { text-decoration: none; padding: 10px 20px; color: white; border-radius: 5px; display: inline-block; }
+        .home-btn { background-color: #007BFF; }
+        .quizzes-btn { background-color: #28A745; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Results for {{ quiz.title }}</h2>
+
+        {% if latest_attempt %}
+            <!-- Dynamic Score Styling -->
+            {% if percentage >= 75 %}
+                <div class="score-box high-score">🎉 Excellent! You scored {{ latest_attempt.score }} / {{ questions.count }}</div>
+            {% elif percentage >= 50 %}
+                <div class="score-box medium-score">😊 Good Job! You scored {{ latest_attempt.score }} / {{ questions.count }}</div>
+            {% else %}
+                <div class="score-box low-score">😟 Keep Practicing! You scored {{ latest_attempt.score }} / {{ questions.count }}</div>
+            {% endif %}
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar {{ progress_class }}" style="width: {{ percentage }}%;"></div>
+            </div>
+        {% else %}
+            <h3>No score found.</h3>
+        {% endif %}
+
+        {% for question in questions %}
+            <div class="question-box">
+                <p><strong>Question:</strong> {{ question.text }}</p>
+                <p><strong>Correct Answer:</strong> {{ question.get_correct_answer }}</p>
+                {% if question.explanation %}
+                    <p><strong>Explanation:</strong> {{ question.explanation }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="buttons">
+            <a href="{% url 'home' %}" class="btn home-btn">🏠 Home</a>
+            <a href="{% url 'quiz_list' %}" class="btn quizzes-btn">📋 Other Quizzes</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; margin: 0; padding: 0; }
+        .container { max-width: 400px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 50px; }
+        h2 { color: #333; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { font-weight: bold; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .login-btn { background: #007BFF; color: white; border: none; padding: 10px 15px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
+        .login-btn:hover { background: #0056b3; }
+        .register-link { margin-top: 15px; display: block; color: #007BFF; text-decoration: none; }
+        .register-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🔑 Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="login-btn">✅ Login</button>
+        </form>
+        <a href="{% url 'register' %}" class="register-link">📝 Don't have an account? Register here</a>
+    </div>
+
+</body>
+</html>

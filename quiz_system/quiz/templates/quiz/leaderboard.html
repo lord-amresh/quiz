@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 50px; }
+        h2 { color: #333; }
+        .leaderboard { list-style: none; padding: 0; }
+        .leaderboard-item { background: #fff; padding: 10px; margin: 5px 0; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); font-size: 18px; }
+        .top-score { background: #FFD700; font-weight: bold; } /* Gold for highest scorer */
+        .buttons { margin-top: 20px; }
+        .btn { text-decoration: none; padding: 10px 20px; color: white; border-radius: 5px; display: inline-block; margin: 5px; font-size: 16px; font-weight: bold; }
+        .home-btn { background-color: #007BFF; }
+        .quiz-btn { background-color: #28A745; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🏆 Leaderboard</h2>
+
+        <ul class="leaderboard">
+            {% for entry in top_scores %}
+                <li class="leaderboard-item {% if forloop.first %}top-score{% endif %}">
+                    {{ entry.user__username }} - <strong>{{ entry.high_score }}</strong>
+                </li>
+            {% empty %}
+                <li class="leaderboard-item">No scores yet.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="buttons">
+            <a href="{% url 'home' %}" class="btn home-btn">🏠 Home</a>
+            <a href="{% url 'quiz_list' %}" class="btn quiz-btn">📋 Take a Quiz</a>
+        </div>
+    </div>
+
+</body>
+</html>

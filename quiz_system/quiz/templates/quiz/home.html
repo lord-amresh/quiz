@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Online Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: auto; padding: 40px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 50px; }
+        h1 { color: #333; }
+        .btn-container { margin-top: 20px; }
+        .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+        .login-btn { background-color: #007BFF; }
+        .leaderboard-btn {
+    background-color: #17A2B8; /* Blue */
+}
+        .register-btn { background-color: #28A745; }
+        .quiz-btn {
+    background-color: #FFC107; /* Yellow */
+}
+.logout-btn {
+    background-color: #DC3545; /* Red */
+}
+        .btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Online Quiz System</h1>
+        <p>Test your knowledge with exciting quizzes! 🎉</p>
+
+        <div class="btn-container">
+            {% if user.is_authenticated %}
+                <p>Hello, <strong>{{ user.username }}</strong>! 👋</p>
+                <a href="{% url 'quiz_list' %}" class="btn quiz-btn">📋 Take a Quiz</a>
+                <a href="{% url 'leaderboard' %}" class="btn leaderboard-btn">🏆 Leaderboard</a> <!-- ✅ FIXED BUTTON -->
+                <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn login-btn">🔑 Login</a>
+                <a href="{% url 'register' %}" class="btn register-btn">📝 Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

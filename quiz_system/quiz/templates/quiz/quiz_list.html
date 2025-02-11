@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Quizzes</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 50px; }
+        h2 { color: #333; }
+        .quiz-list { list-style: none; padding: 0; }
+        .quiz-item { background: #fff; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; }
+        .quiz-item:hover { transform: scale(1.05); }
+        .quiz-link { text-decoration: none; font-size: 18px; color: #007BFF; font-weight: bold; display: block; padding: 10px; }
+        .quiz-link:hover { color: #0056b3; }
+        .btn-container { margin-top: 20px; }
+        .btn { text-decoration: none; padding: 10px 20px; color: white; border-radius: 5px; display: inline-block; margin: 5px; font-size: 16px; font-weight: bold; }
+        .home-btn { background-color: #28A745; }
+        .leaderboard-btn { background-color: #FFC107; color: black; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📚 Available Quizzes</h2>
+
+        <ul class="quiz-list">
+            {% for quiz in quizzes %}
+                <li class="quiz-item">
+                    <a href="{% url 'take_quiz' quiz.id %}" class="quiz-link">📝 {{ quiz.title }}</a>
+                    <p>{{ quiz.description }}</p>
+                </li>
+            {% empty %}
+                <li class="quiz-item">No quizzes available at the moment.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="btn-container">
+            <a href="{% url 'home' %}" class="btn home-btn">🏠 Home</a>
+            <a href="{% url 'leaderboard' %}" class="btn leaderboard-btn">🏆 Leaderboard</a>
+        </div>
+    </div>
+
+</body>
+</html>
